@@ -3,6 +3,11 @@ import requests
 import json
 from string import Template
 
+count = 0
+list = []
+
+# 参数部分
+
 url = "some url"
 
 header = {
@@ -15,24 +20,25 @@ header = {
 
 f = open('some.json')
 someDict = json.load(f)
-count = 0
-list = []
-
 dataTemp = Template('{"someKey": "${key}", "someValue": [${value}]}')
-"""
-body='{"xxx":"yyy"}'
 
-response=requests.post(url=url,headers=header,data=body)
-print(response)
-"""
+# 示例
+# body='{"xxx":"yyy"}'
+# response=requests.post(url=url,headers=header,data=body)
+# print(response)
 
 for key, value in someDict.items():
     # 过滤 None
     if value == None:
-        print("NoneKey: ", key)
+        print("{} is None: ", key)
         continue
 
-    response = requests.post(url=url, headers=header, data=dataTemp.substitute(key=key, value=value))
+    params_str = dataTemp.substitute(key=key, value=value)
+
+    print("requests params: \n", params_str)
+    response = requests.post(url=url, headers=header, data=params_str)
+    print("response: \n", response.json())
+
     count += 1
     # 获取响应状态码
     if (response.status_code == 200):
@@ -40,7 +46,7 @@ for key, value in someDict.items():
     else:
         print(response.status_code)  # 状态码
         print(response.content)  # 响应内容
-    print("这是第：{0} 次发送".format(count))
+    print("这是第 {0} 次发送\n".format(count))
 
 print("测试结束，下面是测试实效的序号：")
 print(list)

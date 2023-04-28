@@ -5,7 +5,7 @@ import random
 import string
 import hashlib
 from string import Template
-# import json
+import json
 
 count = 0
 list = []
@@ -67,3 +67,20 @@ for ele in somelist:
 
 print("测试结束，下面是测试实效的序号：")
 print(list)
+
+# dict to json 字符串
+
+# temp = {
+#     "a": str("a"),
+#     "b": "b",
+#     "c": "b",
+#     "d": "d",
+#     "e": "e",
+#     "f": {
+#         "g": (int(round(time.time() * 1000)) - 15 * 24 * 60 * 60 * 1000),
+#         "h": (int(round(time.time() * 1000))),
+#     },
+# }
+
+# print("requests params: \n", json.dumps(temp))
+# response = requests.post(url=url, headers=header, data=json.dumps(temp))
